@@ -39,5 +39,5 @@ jobs:
           uses: actions/upload-artifact@v3
           with:
             name: bomber-results
-            path: *-bomber-results.html
+            path: ./*-bomber-results.html
             retention-days: 5
