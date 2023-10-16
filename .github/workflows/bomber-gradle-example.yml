@@ -26,7 +26,7 @@ jobs:
           run: cdxgen --spec-version=1.4 -o bom.json # Create the SBOM we want to scan
 
         - name: Check SBOM with bomber
-          run: bomber scan --provider snyk --token ${{ secrets.SNYK_TOKEN }} bom.json # Scan the SBOM for vulns using Snyk as a vuln provider
+          run: bomber scan --provider snyk --token ${{ secrets.SNYK_TOKEN }} --output html bom.json # Scan the SBOM for vulns using Snyk as a vuln provider
 
         - name: Upload SBOM
           uses: actions/upload-artifact@v3
