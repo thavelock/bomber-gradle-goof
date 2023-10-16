@@ -34,3 +34,10 @@ jobs:
             name: sbom-cyclonedx
             path: bom.json
             retention-days: 5
+
+        - name: Upload Bomber Results
+          uses: actions/upload-artifact@v3
+          with:
+            name: bomber-results
+            path: *-bomber-results.html
+            retention-days: 5
