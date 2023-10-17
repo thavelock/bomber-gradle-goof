@@ -19,6 +19,14 @@ jobs:
             command: sbom
             args: --all-sub-projects --file=app/build.gradle --format=cyclonedx1.4+json --json-file-output=sbom-cyclonedx.json
 
+        - name: Snyk Test
+          uses: snyk/actions/gradle@master
+          env:
+            SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          with:
+            command: test
+            args: --all-sub-projects --file=app/build.gradle
+
         - name: Upload SBOM
           uses: actions/upload-artifact@v3
           with:
