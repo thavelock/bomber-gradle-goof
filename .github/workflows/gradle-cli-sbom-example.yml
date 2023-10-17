@@ -1,0 +1,27 @@
+name: Gradle CLI SBOM Example
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  gradle-cli-sbom-example:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout Repo
+          uses: actions/checkout@master
+
+        - name: Generate SBOM with Snyk CLI
+          uses: snyk/actions/gradle@master
+          env:
+            SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          with:
+            command: sbom
+            args: --all-sub-projects --file=app/build.gradle --format=cyclonedx1.4+json --json-file-output=sbom-cyclonedx.json
+
+        - name: Upload SBOM
+          uses: actions/upload-artifact@v3
+          with:
+            name: sbom-cyclonedx
+            path: sbom-cyclonedx.json
+            retention-days: 5
